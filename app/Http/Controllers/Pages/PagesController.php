@@ -158,15 +158,15 @@ class PagesController extends Controller
 
         if($slug1 == '' && $slug2 == '' && $slug3 == ''){
 
-            $page = Post::where('slug', $page)->where('status', 1)->first()->toArray();
+            $page = Post::where('slug', $page)->where('status', 1)->first();
 
         }else if($slug2 == '' && $slug3 == ''){
 
-            $page = Post::where('slug', $page.'/'.$slug1)->where('status', 1)->first()->toArray();
+            $page = Post::where('slug', $page.'/'.$slug1)->where('status', 1)->first();
 
         }else if($slug3 == ''){
 
-            $page = Post::where('slug', $page.'/'.$slug1.'/'.$slug2)->where('status', 1)->first()->toArray();
+            $page = Post::where('slug', $page.'/'.$slug1.'/'.$slug2)->where('status', 1)->first();
 
         }else{
 
@@ -174,13 +174,22 @@ class PagesController extends Controller
 
         }
 
-
-
         $header_menu = Menu::where('type', 'header_menu')->where('status', 0)->orderBy('order', 'asc')->get();
+
+        
         if($page != null){
-            return Inertia::render('Home', [
-                'page_info' => $page,
-            ])->withViewData(['meta' => 'test']);
+            $array = array();
+            $sectionData = PostsMeta::where('pageable_id', $page->id)->get(['meta_key', 'meta_value']);
+
+            if(!$sectionData->isEmpty()){
+                foreach($sectionData as $key => $value){
+                    $array[$value->meta_key] = $value->meta_value;
+                }
+            }
+
+
+            return Inertia::render($page->template, ['pages' => $page, 'section' => $array])->withViewData(['title' => $page->meta_title, 'des' => $page->meta_description]);
+
 
             //  if($page->template == 'blogs_template'){
 
@@ -280,7 +289,7 @@ class PagesController extends Controller
 
                         'meta_value' => json_encode($request[$type]),
 
-                        'lang' => env('DEFAULT_LANGUAGE'),
+                        'lang' => $request['lang'],
 
                         'section_id' => $request->section_id,
 
@@ -296,7 +305,7 @@ class PagesController extends Controller
 
                         'meta_value' => $request[$type],
 
-                        'lang' => env('DEFAULT_LANGUAGE'),
+                        'lang' => $request['lang'],
 
                         'section_id' => $request->section_id,
 

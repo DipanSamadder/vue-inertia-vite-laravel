@@ -30,50 +30,51 @@ $('.main_menu_sec a[href^=\\#]').on('click', function(event){
     $('html,body').animate({scrollTop:$(this.hash).offset().top}, 500);
 });
 
-var swiper = new Swiper(".programs_slider", {
-	slidesPerView: 1,
-    spaceBetween: 0,
-	pagination: {
-	  el: ".programs_pagination",
-	  dynamicBullets: true,
-	  clickable: true,
-	},
-	breakpoints: {
-        640: {
-          slidesPerView: 1,
-        },
-        768: {
-          slidesPerView: 2,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 0,
-        },
-      },
-  });
+// var swiper = new Swiper(".programs_slider", {
+// 	slidesPerView: 1,
+//     spaceBetween: 0,
+// 	pagination: {
+// 	  el: ".programs_pagination",
+// 	  dynamicBullets: true,
+// 	  clickable: true,
+// 	},
+// 	breakpoints: {
+//         640: {
+//           slidesPerView: 1,
+//         },
+//         768: {
+//           slidesPerView: 2,
+//         },
+//         1024: {
+//           slidesPerView: 3,
+//           spaceBetween: 0,
+//         },
+//       },
+//   });
 
-  var swiper = new Swiper(".gallery_slider", {
-	slidesPerView: 1,
-    spaceBetween: 0,
-	pagination: {
-	  el: ".gallery_pagination",
-	  dynamicBullets: true,
-	  clickable: true,
-	},
-	breakpoints: {
-        640: {
-          slidesPerView: 1,
-        },
-        768: {
-          slidesPerView: 2,
-        },
-        1024: {
-          slidesPerView: 3,
-          spaceBetween: 20,
-        },
-      },
-  });
+  // var swiper = new Swiper(".gallery_slider", {
+	// slidesPerView: 1,
+  //   spaceBetween: 0,
+	// pagination: {
+	//   el: ".gallery_pagination",
+	//   dynamicBullets: true,
+	//   clickable: true,
+	// },
+	// breakpoints: {
+  //       640: {
+  //         slidesPerView: 1,
+  //       },
+  //       768: {
+  //         slidesPerView: 2,
+  //       },
+  //       1024: {
+  //         slidesPerView: 3,
+  //         spaceBetween: 20,
+  //       },
+  //     },
+  // });
 
+  $.fancybox.defaults.hash = false;
 
 $(document).ready(function(){
 	$('.m_height').matchHeight();

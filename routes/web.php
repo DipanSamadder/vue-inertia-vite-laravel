@@ -118,7 +118,7 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
-Route::get('/', 'HomeController@index')->name('home_old');
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('send-test-mail', 'MailController@testmail')->name('testmail');
 Route::get('/optimize', function() {
     Artisan::call('optimize:clear');

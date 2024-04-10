@@ -11,3 +11,10 @@ export async function getImageUrlByID(id) {
     }
    
 }
+
+export async function dsvd_static_assets(imageName) {
+    const imagePath = '/public/frontend/';
+    const imageUrl = (imageName) => {
+        return asset(imagePath + imageName);
+    };
+}

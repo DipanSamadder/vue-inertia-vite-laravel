@@ -10,6 +10,9 @@
 
     $page_title = strtolower($title_page);
 
+    if($lang!=''){
+        $lang = 'en';
+    }
     
 
 @endphp

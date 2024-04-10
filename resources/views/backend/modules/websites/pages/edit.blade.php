@@ -7,9 +7,7 @@
 <link rel="stylesheet" href="{{ dsld_static_asset('backend/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
 
 <style>
-
     .bootstrap-tagsinput{    border: 1px solid #cbcbcb !important;width: 100%;}
-
 </style>
 
 @endsection
