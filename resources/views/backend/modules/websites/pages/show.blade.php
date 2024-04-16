@@ -77,6 +77,7 @@
                     '_token':'{{ csrf_token() }}', 
                     'user_id':'{{ Auth::user()->id }}',
                     'title': $('#title').val(),
+                    'lang': $('#lang').val(),
                     'banner': $('#banner').val(),
                     'type': $('#type').val(),
                     'status': $('#status').val(),

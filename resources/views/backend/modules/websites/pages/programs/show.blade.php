@@ -166,6 +166,7 @@ if(isset($page) && !empty($page['name'])){
 
                     'user_id':'{{ Auth::user()->id }}',
 
+                    'lang': $('#lang').val(),
                     'title': $('#title').val(),
 
                     'banner': $('#banner').val(),

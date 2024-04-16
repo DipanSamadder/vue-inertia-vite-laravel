@@ -54,7 +54,7 @@
 
             <input type="hidden" name="_method" value="PATCH">
 
-		    <input type="hidden" name="lang" id="lang" value="{{ $lang }}">
+		    <input type="hidden" name="lang" id="lang" value="en">
 
             <input type="hidden" name="id" id="id" value="{{ $data->id }}" />
 
@@ -980,9 +980,9 @@
 
                     'user_id':'{{ Auth::user()->id }}',
 
-                    'lang':'{{ $lang }}',
-
+                
                     'id': $('#id').val(),
+                    'lang': $('#lang').val(),
 
                     'title': $('#title').val(),
 

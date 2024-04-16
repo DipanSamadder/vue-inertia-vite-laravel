@@ -23,7 +23,7 @@
 
     <input type="hidden" name="page_id" value="{{ $data->id }}" />
 
-    <input type="hidden" name="lang" value="{{ $lang }}" />
+    <input type="hidden" name="lang" value="en" />
 
     <input type="hidden" name="page_name" value="{{ $page_title }}" />
 
@@ -901,7 +901,7 @@
                     </div>
 
                 </div>
-@elseif ($element->type == 'image_repeter')
+            @elseif ($element->type == 'image_repeter')
 
             @php 
 
@@ -1763,6 +1763,45 @@
                     </div>
 
                 </div>
+
+
+                @elseif ($element->type == 'post_type')
+
+                    <div class="row clearfix mb-2">
+
+                        <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+
+                            <label class="form-label">{{ ucfirst(str_replace('_', ' ', $element->type)) }}</label>  
+
+                        </div>
+
+                        <div class="col-lg-10 col-md-10 col-sm-8">
+
+                            <div class="form-group">
+
+                                <input type="hidden" name="type[]" value="{{ $page_meta_key }}">
+
+                                <select class="form-control" name="{{ $page_meta_key }}">
+
+                                    <option value="">-- Please select --</option>
+
+                                    @if (App\Models\Post::whereNotIn('type', ['blade_template'])->select('type', \DB::raw('MIN(id) as id'))->groupBy('type')->get())
+
+                                        @foreach (App\Models\Post::whereNotIn('type', ['blade_template'])->select('type', \DB::raw('MIN(id) as id'))->groupBy('type')->get() as $value)
+
+                                            <option value="{{ $value->type }}" @if($value->type == dsld_page_meta_value_by_meta_key($page_meta_key, $data->id)) selected @endif>{{ $value->type }}</option>
+
+                                        @endforeach
+
+                                    @endif
+
+                                </select>
+
+                            </div><small>Meta Key: {{ $page_meta_key }}</small>
+
+                        </div>
+
+                    </div>
 
 
 

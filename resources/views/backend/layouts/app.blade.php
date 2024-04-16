@@ -195,8 +195,11 @@
         </section> 
 
         @include('backend.modals.add_media')
+        
         <input type="hidden" name="media_page_no" id="media_page_no" value="1">
+
         @include('backend.modals.get_media')
+
         <div class="full_page_loader" style="display:none"><div class="lds-ripple"><div></div><div></div></div></div>
         <!-- Jquery Core Js --> 
         <script src="{{ dsld_static_asset('backend/assets/bundles/libscripts.bundle.js') }}"></script> <!-- Lib Scripts Plugin Js ( jquery.v3.2.1, Bootstrap4 js) --> 

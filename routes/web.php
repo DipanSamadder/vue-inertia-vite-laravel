@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\HomeController;
 use Inertia\Inertia;
 
 /*
@@ -54,25 +55,12 @@ Route::get('/get-image/{id?}', function($id){
 });
 
 
-Route::get('/business-settings', function(){
-    $array = array();
-    $data = App\Models\BusinessSetting::where('type', 'like', 'site_%')->get(['type', 'value']);
 
-    if(!$data->isEmpty()){
-        foreach($data as $key => $value){
-            $array[$value->type] = $value->value;
-        }
-    }
-    $array['header_menu'] = App\Models\Menu::where('type', 'header_menu')->where('level', 1)->where('status', 0)->orderBy('order', 'ASC')->get()->toArray();
-    $array['topbar_menu'] = App\Models\Menu::where('type', 'topbar_menu')->where('level', 1)->where('status', 0)->orderBy('order', 'ASC')->get()->toArray();
-
-
-    return $array;
-});
-
+Route::get('/business-settings', [HomeController::class, 'businessSetting']);
 
 
 Route::middleware('guest')->group(function () {
+  
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
@@ -140,6 +128,11 @@ Route::get('/dashboard', function () {
 Route::post('contact-form/submit-data', 'Setting\ContactFormController@ajax_submit_data')->name('contact_form.submit_data');
 
 Route::get('npf-form/{id}', 'Setting\ContactFormController@npf_form')->name('npf.show');
+
+
+Route::get('/p/form', 'Setting\ContactFormController@vueForm')->name('vue.form');
+Route::post('/p/submit-form', 'Setting\ContactFormController@vueSubmit')->name('vue.form.submit');
+
 
 Route::get('/{page}/{slug1?}/{slug2?}/{slug3?}', 'Pages\PagesController@show_custom_page')->name('custom-pages.show_custom_page');
 

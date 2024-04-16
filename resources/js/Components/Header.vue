@@ -3,6 +3,7 @@
     import Nav from '@/Components/Nav.vue';
     import Skeleton from "@/Components/Skeleton.vue";
     import { defineProps } from 'vue';
+    import { Link } from '@inertiajs/vue3';
 
     const props = defineProps({
         imageData: Object 
@@ -27,7 +28,7 @@
                     
                     <Suspense>
                         <div class="logo_sec">  
-                            <a href=""><Logo :imageData="imageData"/></a>
+                            <Link :href="route('home')"><Logo :imageData="imageData"/></Link>
                         </div>
                         <template #fallback>
                             <div class="logo_sec">          

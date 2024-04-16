@@ -5,8 +5,7 @@ import { defineProps } from 'vue';
 import { getImageUrlByID } from '@/Inc/globalFunctions.js';
 import Skeleton from "@/Components/Skeleton.vue";
 import Image from '../Components/Image.vue';
-import { Head } from "@inertiajs/inertia-vue3";
-
+import {Head } from "@inertiajs/inertia-vue3"
 const props = defineProps(['pages','section']);
 defineOptions({ layout: Layout });
 
@@ -22,38 +21,23 @@ onMounted(async () => {
 </script>
 <template>
     <Head>
-        <title>{{  props.pages.meta_title }}</title>
-        <meta head-key="description" name="description" content="{{  props.pages.meta_title }}" />
-        <meta head-key="keword" name="keword" content="{{  props.pages.meta_description }}" />
-    </Head>
+    <title>{{  props.pages.meta_title }}</title>
+    <meta head-key="description" name="description" content="{{  props.pages.meta_title }}" />
+    <meta head-key="keword" name="keword" content="{{  props.pages.meta_description }}" />
+  </Head>
     <section>
     <div class="about_section about_section1 bg-light space_sec" id="about_section1">
         <div class="container">
         <div class="row">
-            <div class="col-lg-6">
-            <div class="about_content pe-lg-4">
-                <div class="heading_sec">
-                <h2 class="head">{{ props.pages.title }}</h2>
+            <div class="col-lg-12">
+                <div class="about_content pe-lg-4">
+                    <div class="heading_sec">
+                    <h2 class="head">{{ props.pages.title }}</h2>
+                    </div>
+                    <div class="para_sec" v-html="props.pages.content">
+                
+                    </div>
                 </div>
-                <div class="para_sec" v-html="props.pages.about_aboutpagesection_editor_1">
-            
-                </div>
-                <div class="about_btn">
-                <a href="#" class="site_btn"><span>View More</span></a>
-                </div>
-            </div>
-            </div>
-            <div class="col-lg-6">
-            <div class="about_img pe-lg-4">
-                <span class="border_bg">
-                    <Suspense>
-                        <Image :imageData="pageBanner" class="img-fluid w-100"/>
-                        <template #fallback>
-                            <Skeleton height="500px" width="100%"  borderRadius="0%"/>
-                        </template>
-                    </Suspense>
-                </span>
-            </div>
             </div>
         </div>
         </div>

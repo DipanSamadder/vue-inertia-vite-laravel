@@ -158,19 +158,19 @@ class PagesController extends Controller
 
         if($slug1 == '' && $slug2 == '' && $slug3 == ''){
 
-            $page = Post::where('slug', $page)->where('status', 1)->first();
+            $page = Post::where('slug', $page)->where('status', 1)->first()->toArray();
 
         }else if($slug2 == '' && $slug3 == ''){
 
-            $page = Post::where('slug', $page.'/'.$slug1)->where('status', 1)->first();
+            $page = Post::where('slug', $page.'/'.$slug1)->where('status', 1)->first()->toArray();
 
         }else if($slug3 == ''){
 
-            $page = Post::where('slug', $page.'/'.$slug1.'/'.$slug2)->where('status', 1)->first();
+            $page = Post::where('slug', $page.'/'.$slug1.'/'.$slug2)->where('status', 1)->first()->toArray();
 
         }else{
 
-            $page = Post::where('slug', $page.'/'.$slug1.'/'.$slug2.'/'.$slug3)->where('status', 1)->first();
+            $page = Post::where('slug', $page.'/'.$slug1.'/'.$slug2.'/'.$slug3)->where('status', 1)->first()->toArray();
 
         }
 
@@ -178,17 +178,34 @@ class PagesController extends Controller
 
         
         if($page != null){
+
             $array = array();
-            $sectionData = PostsMeta::where('pageable_id', $page->id)->get(['meta_key', 'meta_value']);
-
-            if(!$sectionData->isEmpty()){
-                foreach($sectionData as $key => $value){
-                    $array[$value->meta_key] = $value->meta_value;
-                }
-            }
-
-
-            return Inertia::render($page->template, ['pages' => $page, 'section' => $array])->withViewData(['title' => $page->meta_title, 'des' => $page->meta_description]);
+            $data = getDataPosts($page['id'], $page);
+           
+        //     $sectionData = PostsMeta::where('pageable_id', $page['id'])->get(['meta_key', 'meta_value']);
+        //     if(!$sectionData->isEmpty()){
+        //         foreach($sectionData as $key => $value){
+        //             if (strpos($value->meta_key, 'post_type') !== false) {
+        //                 $newPost = Post::where('type', $value->meta_value)->where('status', 1)->get()->toArray();
+        //                 $array[$value->meta_key.'_data'] = $newPost;
+        //             }
+        //             $array[$value->meta_key] = $value->meta_value;
+                    
+        //         }
+        //     }
+            
+        //    $data =array_merge($page, $array);
+            
+        //     $images= array();
+        //     if($page['banner'] != '' || $page['banner'] != 0){
+        //         $images['banner_images'] = dsld_files_data($page['banner']);
+        //     }
+        //     if($page['thumbnail'] != '' || $page['thumbnail'] != 0){
+        //         $images['thumbnail_images'] = dsld_files_data($page['thumbnail']);
+        //     }
+        //     $data =array_merge($data, $images);
+       
+            return Inertia::render($page['template'], ['pages' => $data]);
 
 
             //  if($page->template == 'blogs_template'){
@@ -223,7 +240,7 @@ class PagesController extends Controller
 
     }
 
-
+ 
 
     public function update(Request $request){
 

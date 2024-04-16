@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { usePage } from '@inertiajs/inertia-vue3';
 
 export async function getImageUrlByID(id) {
     try {
@@ -17,4 +18,15 @@ export async function dsvd_static_assets(imageName) {
     const imageUrl = (imageName) => {
         return asset(imagePath + imageName);
     };
+}
+
+export function activeNav(url, slug, option="full"){
+    const baseUrl = window.location.origin;
+    const fullUrl = baseUrl + url;
+    if(option=='full' && (fullUrl === slug)){
+       return true;
+    }else if(url === slug){
+        return true;
+    }
+    return false;
 }

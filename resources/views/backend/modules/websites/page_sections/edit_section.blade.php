@@ -50,8 +50,8 @@
 
                         
 
-								@if ($element->type == 'text' || $element->type == 'image_box'  || $element->type == 'vission_mession' || $element->type =='album_id'  || $element->type == 'message' || $element->type == 'link_box' || $element->type == 'program' || $element->type == 'faculty' || $element->type == 'image_box_repeter'  || $element->type == 'image_repeter' || $element->type == 'thc_repeter' || $element->type == 'button' || $element->type == 'editor' || $element->type == 'file' || $element->type == 'text_repeter' || $element->type == 'file_repeter')
-
+								@if ($element->type == 'text' || $element->type == 'image_box'  || $element->type == 'vission_mession' || $element->type =='album_id'  || $element->type == 'message' || $element->type == 'link_box' || $element->type == 'program' || $element->type == 'faculty' || $element->type == 'image_box_repeter'  || $element->type == 'image_repeter' || $element->type == 'thc_repeter' || $element->type == 'button' || $element->type == 'editor' || $element->type == 'file' || $element->type == 'text_repeter' || $element->type == 'file_repeter' || $element->type == 'post_type')
+                                
 								
 
 									<div class="row clearfix  mb-2">
@@ -217,6 +217,7 @@
                         <li class="list-group-item btn" style="text-align: left;" onclick="appendToForm('vission_mession')">Vission & Mession</li>
 
                         <li class="list-group-item btn" style="text-align: left;" onclick="appendToForm('album_id')">Album ID</li>
+                        <li class="list-group-item btn" style="text-align: left;" onclick="appendToForm('post_type')">Post Type</li>
 
                         
 
@@ -338,6 +339,38 @@
 
       
 
+        
+        }else if(type == 'post_type'){
+
+            var str = '<div class="row clearfix mb-2">'
+
+                            +'<div class="col-sm-3">'
+
+                                +'<input type="hidden" name="type[]" value="post_type">'
+
+                                +'<label class="col-from-label">Post Type</label>'
+
+                            +'</div>'
+
+                            +'<div class="col-sm-7">'
+
+                                +'<input class="form-control" type="text" name="label[]" placeholder="Label" onchange="is_edited()">'
+
+                            +'</div>'
+
+                            +'<div class="col-sm-2">'
+
+                                +'<button type="button" class="btn btn-sm btn-danger" data-toggle="remove-parent" data-parent=".row"><i class="zmdi zmdi-hc-fw"></i> </button>'
+
+                            +'</div>'
+
+                        +'</div>';
+
+            $('#form_elements').append(str);
+
+      
+
+        
         }else if(type == 'vission_mession'){
 
             var str = '<div class="row clearfix mb-2">'

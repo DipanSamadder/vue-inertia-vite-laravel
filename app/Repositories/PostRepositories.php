@@ -162,9 +162,9 @@ class PostRepositories implements PostInterfaces{
 
         if($page->save()){
 
+           $lang = isset($request['lang']) ? $request['lang']: env('DEFAULT_LANGUAGE');
 
-
-            $page->translations()->create(['lang' => env('DEFAULT_LANGUAGE'), 'short_content' => $content, 'title' => $request['title'], 'content' => $content]);
+            $page->translations()->create(['lang' => $lang, 'short_content' => $content, 'title' => $request['title'], 'content' => $content]);
 
 
 
@@ -187,7 +187,7 @@ class PostRepositories implements PostInterfaces{
     public function sections($id, $section_id = null){
 
         $data = $this->find($id);
-
+        
         $data = $data->sections();
 
 
@@ -325,54 +325,25 @@ class PostRepositories implements PostInterfaces{
         $page =  $this->find($id);
 
 
+        if(isset($request['title'])){
 
-
-
-        if(isset($request['type']) && $request['type'] == 'custom_page'){
-
-            if(isset($request['lang']) && $request['lang'] == env("DEFAULT_LANGUAGE")){
-
-                if(isset($request['title'])){
-
-                    $page->title = $request['title'];
-
-                }
-
-                if(isset($request['content'])){
-
-                    $page->content = $request['content'];
-
-                }
-
-                if(isset($request['short_content'])){
-
-                    $page->short_content = $request['short_content'];
-
-                }
-
-            }
-
-        }else{
-
-            if(isset($request['title'])){
-
-                $page->title = $request['title'];
-
-            }
-
-            if(isset($request['content'])){
-
-                $page->content = $request['content'];
-
-            }
-
-            if(isset($request['short_content'])){
-
-                $page->short_content = $request['short_content'];
-
-            }
+            $page->title = $request['title'];
 
         }
+
+        if(isset($request['content'])){
+
+            $page->content = $request['content'];
+
+        }
+
+        if(isset($request['short_content'])){
+
+            $page->short_content = $request['short_content'];
+
+        }
+
+        
 
 
 
@@ -505,7 +476,7 @@ class PostRepositories implements PostInterfaces{
 
         if($page->save()){
 
-            if(isset($request['type']) && ($request['type'] == 'custom_page' || $request['type'] == 'department_details' || $request['type'] == 'programs_details')){
+            if(isset($request['type']) && ($request['type'] == 'custom_page')){
 
                 $trans = $page->translations()->where('lang', $request['lang'])->first();
 
@@ -518,15 +489,10 @@ class PostRepositories implements PostInterfaces{
                 }else{
 
                     $page->translations()->create([
-
                         'title' => $request['title'],
-
                         'content' => $content,
-
                         'short_content' => $request['short_content'],
-
                         'lang' => $request['lang']
-
                     ]);
 
                 }

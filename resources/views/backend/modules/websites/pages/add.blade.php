@@ -9,6 +9,7 @@
             @csrf 
             <div class="modal-body">
                 <input type="hidden" name="type" id="type" value="custom_page" />
+                <input type="hidden" name="lang" id="lang" value="en" />
                 <div id="add_new_larger_modals_body">
                     <div class="body">
                         <div class="row clearfix">

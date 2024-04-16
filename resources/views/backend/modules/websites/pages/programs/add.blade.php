@@ -19,6 +19,7 @@
             <div class="modal-body">
 
                 <input type="hidden" name="type" id="type" value="programs_details" />
+                <input type="hidden" name="lang" id="lang" value="en" />
 
                 <div id="add_new_larger_modals_body">
 

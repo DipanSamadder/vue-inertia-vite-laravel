@@ -10,6 +10,7 @@ use App\Models\PostTranslation;
 use App\Models\ContactForm;
 use App\Interfaces\PostInterfaces;
 use Validator;
+use Inertia\Inertia;
 
 class ContactFormController extends Controller
 {
@@ -21,6 +22,36 @@ class ContactFormController extends Controller
         $this->middleware('permission:add-contactfs', ['only' => ['create','store']]);
         $this->middleware('permission:edit-contactfs', ['only' => ['edit','update']]);
     }
+
+
+    public function vueForm(){
+       
+        return Inertia::render('Form');
+    }
+
+
+    public function vueSubmit(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+
+        if($validator->fails()) {
+            return redirect()->back()->with(['type' => 'error', 'message' => $validator->errors()->first()]);
+        }
+
+        $form = new ContactForm;
+        $form->meta_key = $request->name;
+        $form->meta_value = $request->email;
+        $form->form_id = 1;
+        $form->unit_id = 1;
+        $form->save();
+
+        return redirect()->back()->with(['type' => 'success', 'message' => 'Form submitted successfully!']);
+        
+    }
+
 
     public function index(){
         $page['title'] = 'Show all Contacts';

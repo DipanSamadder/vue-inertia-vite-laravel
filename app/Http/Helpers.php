@@ -935,3 +935,93 @@ if (!function_exists('dsld_lazy_image_by_id')) {
     }
 
 }
+
+if (!function_exists('dsld_files_data')) {
+
+    function dsld_files_data($id, $class = ''){
+        
+        $data = [
+            'url' => dsld_uploaded_file_path($id),
+            'full' => dsld_uploaded_file_path($id, 'full'),
+            'placeholder' => dsld_uploaded_file_path($id, 'placeholder'),
+            'title' => dsld_upload_file_title($id),
+        ];
+        return $data;
+    }
+
+}
+
+if (!function_exists('getDataPosts')) {
+
+    function getDataPosts($postId, $result = [])
+    {
+        
+        $postData = Post::where('id', $postId)->where('status', 1)->get();
+        
+        if(!$postData->isEmpty()){
+
+            $result = $result;
+
+            if(!empty($result)){
+                
+                $images= array();
+                if($result['banner'] != '' && $result['banner'] != "0" && $result['banner'] != null){
+                    $images['banner_images'] = dsld_files_data($result['banner']);
+                }
+                if($result['thumbnail'] != '' && $result['thumbnail'] != "0" && $result['thumbnail'] != null){
+                    $images['thumbnail_images'] = dsld_files_data($result['thumbnail']);
+                }
+                $result =array_merge($result, $images);
+            }
+            
+
+            $sectionData = PostsMeta::where('pageable_id', $postId)->get(['meta_key', 'meta_value']);
+           
+
+            if(!$sectionData->isEmpty()){
+                $array = array();
+                foreach($sectionData as $key => $value){
+
+                    //If have field post type 
+                    if (strpos($value->meta_key, 'post_type') !== false) {
+                        $newPost = Post::where('type', $value->meta_value)->where('status', 1)->get()->toArray();
+
+                        if($newPost) {
+                            $sectionArray = array();
+                            foreach ($newPost as $key => $relatedPost) {
+                                $section = getDataPosts($relatedPost['id'], $relatedPost);
+                                array_push($sectionArray, $section);
+                            }
+                        }
+
+                        $array[$value->meta_key.'_data'] = $sectionArray;
+                        
+                    }elseif(strpos($value->meta_key, '_file_repeter_') !== false) {
+                        if($value->meta_value !='' && is_array(json_decode($value->meta_value, true)) && count(json_decode($value->meta_value, true)) > 0 ){
+                            $file_repeter = array();
+                            foreach(json_decode($value->meta_value, true) as $key => $fr){
+                                $file_repeter[$key] = dsld_files_data($fr);
+                            }
+                            $array[$value->meta_key.'_data'] = $file_repeter;
+                        }
+                        
+                    }elseif(strpos($value->meta_key, '_file_') !== false) {
+                        if($value->meta_value !='' && $value->meta_value != 0){
+                            $array[$value->meta_key.'_data'] = dsld_files_data($value->meta_value);
+                        }
+                    }
+
+                    $array[$value->meta_key] = $value->meta_value;
+                    
+                }
+
+                $result =array_merge($result, $array);
+
+            }
+           
+        }
+        return $result;
+
+    }
+
+}

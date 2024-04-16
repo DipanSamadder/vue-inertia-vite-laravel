@@ -1,14 +1,13 @@
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/vue3'
+import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/index.js';
+
 import './bootstrap';
 import './bootstrap.min';
 import './main';
 import '../css/app.css';
 import '../css/bootstrap.min.css';
 import '../css/style.css';
-
-
-import { createApp, h } from 'vue'
-import { createInertiaApp } from '@inertiajs/vue3'
-import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/index.js';
 
 
 createInertiaApp({

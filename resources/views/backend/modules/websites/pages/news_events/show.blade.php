@@ -132,6 +132,7 @@ if(isset($page) && !empty($page['name'])){
 
                             <input type="hidden" name="type" value="news_events">
                             <input type="hidden" name="template" value="single-new-events">
+                            <input type="hidden" name="lang" value="en">
                             @csrf 
 
                             <div class="modal-body">
