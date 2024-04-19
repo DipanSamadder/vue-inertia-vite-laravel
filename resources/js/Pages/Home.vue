@@ -2,66 +2,62 @@
   import Layout from '@/Components/Layout.vue';
   import Image from '../Components/Image.vue';
   import { ref, onMounted } from 'vue';
-  import { getImageUrlByID} from '@/Inc/globalFunctions.js';
   import Skeleton from "@/Components/Skeleton.vue";
   import { defineProps } from 'vue';
   import { Head } from '@inertiajs/vue3'
+
   defineOptions({ layout: Layout, title: String });
 
   const [initialized] = [ ref(false)];
 
-
-
-const props = defineProps(['pages']);
+  const props = defineProps(['pages']);
 
   onMounted(async () => {
-    try {
-      if (!initialized.value) {
-        initSwiper();
-        initOfferSwiper();
-        initialized.value = true; 
+      try {
+        if (!initialized.value) {
+          initSwiper();
+          initOfferSwiper();
+          initialized.value = true; 
+        }
+      } catch (error) {
+          console.error(error);
       }
-    } catch (error) {
-        console.error(error);
-    }
   });
 
 
-const initSwiper = () => {
-    new Swiper(".gallery_slider", {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        pagination: {
-            el: ".gallery_pagination",
-            dynamicBullets: true,
-            clickable: true,
-        },
-        breakpoints: {
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3, spaceBetween: 20 },
-        },
-    });
-};
+  const initSwiper = () => {
+      new Swiper(".gallery_slider", {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          pagination: {
+              el: ".gallery_pagination",
+              dynamicBullets: true,
+              clickable: true,
+          },
+          breakpoints: {
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3, spaceBetween: 20 },
+          },
+      });
+  };
 
-const initOfferSwiper = () => {
-    new Swiper(".programs_slider", {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        pagination: {
-            el: ".programs_pagination",
-            dynamicBullets: true,
-            clickable: true,
-        },
-        breakpoints: {
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3, spaceBetween: 20 },
-        },
-    });
-};
-
-
+  const initOfferSwiper = () => {
+      new Swiper(".programs_slider", {
+          slidesPerView: 1,
+          spaceBetween: 0,
+          pagination: {
+              el: ".programs_pagination",
+              dynamicBullets: true,
+              clickable: true,
+          },
+          breakpoints: {
+              640: { slidesPerView: 1 },
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3, spaceBetween: 20 },
+          },
+      });
+  };
 
 </script>
 
@@ -71,6 +67,7 @@ const initOfferSwiper = () => {
     <meta head-key="description" name="description" content="{{  props.pages.meta_title }}" />
     <meta head-key="keword" name="keword" content="{{  props.pages.meta_description }}" />
   </Head>
+
   <section>
     <div class="banner_section">
       <Suspense>
@@ -81,6 +78,7 @@ const initOfferSwiper = () => {
       </Suspense>
     </div> 
   </section>
+
   <section>
     <div class="features_section bg-light space_sec" id="features_section">
       <div class="container">
@@ -134,6 +132,7 @@ const initOfferSwiper = () => {
       <img src="frontend/images/bubble_icon2.png" alt="bubble_icon2" class="bubble_icon6">
     </div>
   </section>
+
   <section>
     <div class="principal_section space_sec" id="principal_section">
       <div class="container">
@@ -201,9 +200,6 @@ const initOfferSwiper = () => {
       <img src="frontend/images/bubble_icon2.png" alt="bubble_icon2" class="bubble_icon6">
     </div> 
   </section>
-  
-
-
 
   <section>
     <div class="features_section space_sec" id="gallery_section">
@@ -241,8 +237,6 @@ const initOfferSwiper = () => {
       <img src="frontend/images/bubble_icon2.png" alt="bubble_icon2" class="bubble_icon6">
     </div>
   </section>
-
-
 
   <section>
     <div class="principal_section bg-light space_sec" id="principal_section1">

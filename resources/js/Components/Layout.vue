@@ -2,20 +2,8 @@
   import Header from '@/Components/Header.vue';
   import Footer from '@/Components/Footer.vue';
   import FooterSkeleton from '@/Components/FooterSkeleton.vue';
-  import { ref, onMounted } from 'vue';
-  import axios from 'axios';
-  import { Head } from '@inertiajs/inertia-vue3';
 
-  const bussinessData = JSON.parse(localStorage.getItem('bussinessData'));
- 
-  onMounted(async () => {
-    try {
-          const response = await axios.get(`/business-settings`);
-          localStorage.setItem('bussinessData', JSON.stringify(response.data));
-        } catch (error) {
-            console.error(error);
-        }
-  });
+  import { Head } from '@inertiajs/inertia-vue3';
 
 </script>
 
@@ -58,24 +46,23 @@ export default {
 
 <template>
   <Head>
-    <title>{{ bussinessData.site_title }}</title>
-    <meta head-key="description" name="description" content="{{ bussinessData.site_meta_description }}" />
-    <meta head-key="keyword" name="keyword" content="{{ bussinessData.site_meta_keyword }}" />
+    <title>{{ $page.props.business_setting.site_title }}</title>
+    <meta head-key="description" name="description" content="{{ $page.props.business_setting.site_meta_description }}" />
+    <meta head-key="keyword" name="keyword" content="{{ $page.props.business_setting.site_meta_keyword }}" />
   </Head>
 
   <div class="">
-
     <div v-if="flashMessage" id="flash_msg" style="position: fixed; right: 80px; bottom: 15px; z-index: 99999999;">
       <div :class="['alert', flashClass]" role="alert">
         {{ flashMessage }}
       </div>
     </div>
       
-      <Header :imageData="bussinessData.site_logo_url"/>
+      <Header :imageData="$page.props.business_setting.site_logo_url"/>
       <slot />
 
       <Suspense>
-        <Footer :imageData="bussinessData.site_logo_url" />
+        <Footer :imageData="$page.props.business_setting.site_logo_url" />
 
         <template #fallback>
           <FooterSkeleton/>

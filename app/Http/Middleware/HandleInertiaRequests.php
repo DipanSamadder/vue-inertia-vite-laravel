@@ -51,6 +51,7 @@ class HandleInertiaRequests extends Middleware
                 'message' => fn () => $request->session()->get('message'),
                 'type' => fn () => $request->session()->get('type')
             ],
+            'business_setting' =>  dsld_business_setting_data(),
         ]);
     }
 }

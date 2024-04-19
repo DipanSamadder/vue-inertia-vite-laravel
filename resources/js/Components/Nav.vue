@@ -8,7 +8,7 @@ import { activeNav } from '@/Inc/globalFunctions.js';
 const props = defineProps({
   header_menu: Array
 });
-console.log(props.header_menu);
+
 </script>
 
 <!-- 

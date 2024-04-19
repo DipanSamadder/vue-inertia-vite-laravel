@@ -9,7 +9,6 @@
         imageData: Object 
     });
 
-    const bussinessData = JSON.parse(localStorage.getItem('bussinessData'));
 
 
 </script>
@@ -40,7 +39,7 @@
                     <div class="main_menu_sec">
                         <nav class="main-nav bottom-nav norm_menu">
                             <Suspense>
-                                <Nav :header_menu="bussinessData.header_menu"/>
+                                <Nav :header_menu="$page.props.business_setting.header_menu"/>
                                 <template #fallback>
                                     <ul class="nav ps-0">
                                         <a href="javascript:void(0)" class="cross_icon">
@@ -48,7 +47,7 @@
                                             <span></span>
                                             <span></span>
                                         </a>
-                                        <li v-for="menu in bussinessData.header_menu" :key="menu.id"><a href="#"><Skeleton height="20px" width="80px"  borderRadius="3%" /></a></li>
+                                        <li v-for="menu in $page.props.business_setting.header_menu" :key="menu.id"><a href="#"><Skeleton height="20px" width="80px"  borderRadius="3%" /></a></li>
                                     </ul>
                                 </template>
                             </Suspense>
@@ -75,7 +74,7 @@
                                         </template>
                                     </Suspense>
                                     <Suspense>
-                                        <Nav :header_menu="bussinessData.header_menu"/>
+                                        <Nav :header_menu="$page.props.business_setting.header_menu"/>
                                         <template #fallback>
                                             <ul class="nav ps-0 justify-content-end">
                                                 <a href="javascript:void(0)" class="cross_icon">
@@ -83,7 +82,7 @@
                                                     <span></span>
                                                     <span></span>
                                                 </a>
-                                                <li v-for="menu in bussinessData.header_menu" :key="menu.id"><a href="#"><Skeleton height="20px" width="80px"  borderRadius="3%" /></a></li>
+                                                <li v-for="menu in $page.props.business_setting.header_menu" :key="menu.id"><a href="#"><Skeleton height="20px" width="80px"  borderRadius="3%" /></a></li>
                                             </ul>
                                         </template>
                                     </Suspense>
